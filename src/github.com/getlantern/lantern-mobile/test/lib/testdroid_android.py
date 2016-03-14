@@ -56,12 +56,15 @@ def available_free_android_device():
             return ret
 
 
-def executeTests(api_key, app, group_id=None):
+def executeTests(api_key, app, group_id=None, device_name=None):
     devices = []
+    if device_name is not None:
+        devices.append(device_name)
     if group_id is None:
-        devices = available_free_android_device()
+        if len(devices) == 0:
+            devices = available_free_android_device()
     else:
-        devices = DeviceFinder(apiKey=api_key).devices_by_group(group_id)
+        devices.extend(DeviceFinder(apiKey=api_key).devices_by_group(group_id))
 
     suite = unittest.TestSuite()
     map(lambda d: suite.addTest(

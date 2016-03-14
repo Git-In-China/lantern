@@ -28,7 +28,7 @@ Modify `lib/suite.py` to add more tests.
 
 Make sure you properly set `TESTDROID_APIKEY` environment variable.
 
-You have two options to run tests on Testdroid cloud.
+You have several options to run tests on Testdroid cloud.
 
 * Run on any available free cloud device.
 
@@ -36,11 +36,19 @@ You have two options to run tests on Testdroid cloud.
 ./start_test.py
 ```
 
-* Run on all devices in specific device group.
+* Run on specific cloud device.
+
+```
+./start_test.py --device "Xiaomi MI 1S"
+```
+
+* Run on all devices in specific device group on cloud.
 
 ```
 ./start_test.py --group 14
 ```
+
+Latter two options can be combined.
 
 The script will upload the debug APK before running any test. Supply `--no-upload` option to skip uploading and use the latest uploaded APK.
 
