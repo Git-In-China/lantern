@@ -37,7 +37,7 @@ class TestLantern(ParametrizedTestCase):
     def setUp(self):
         log("Starting Appium test using device '%s'" % self.device_name)
         tm = time.strftime("%Y%m%dT%H%M%S", time.gmtime())
-        self.screenshotDir = os.path.join('./screenshots', self.device_name+'_'+tm)
+        self.screenshotDir = os.path.join('./screenshots', tm + '_' + self.device_name)
         log("Will save screenshots at: " + self.screenshotDir)
         try:
             os.makedirs(self.screenshotDir)
@@ -56,10 +56,12 @@ class TestLantern(ParametrizedTestCase):
         log("Test: start and quit app")
         self.driver.save_screenshot(self.screenshotDir + "/1_appLaunch.png")
 
-        self.by_id('settings_icon').click()
+        # self.by_id('settings_icon').click() # it doesn't work on API 17 or below!
+        elems = self.driver.find_elements_by_class_name('android.widget.ImageView')
+        elems[0].click()
         self.driver.save_screenshot(self.screenshotDir + "/2_showDrawer.png")
 
-        self.elem('Quit').click()
+        self.by_text('Quit').click()
         self.driver.save_screenshot(self.screenshotDir + "/3_quit.png")
 
         # log("  Typing in name")
@@ -106,18 +108,11 @@ class TestLantern(ParametrizedTestCase):
         # self.elem('Answer').click()
 
     def isSelendroid(self):
-        if self._isSelendroid is None:
-            return self._isSelendroid
+        automation = self.driver.capabilities.get('automationName')
+        return automation == 'Selendroid'
 
-        self._isSelendroid = False
-        if 'automationName' in self.driver.capabilities:
-            if self.driver.capabilities['automationName'] == 'selendroid':
-                self._isSelendroid = True
-
-        return self._isSelendroid
-
-    def elem(self, text):
-        if self.isSelendroid:
+    def by_text(self, text):
+        if self.isSelendroid():
             return self.driver.find_element_by_link_text(text)
         else:
             return self.driver.find_element_by_name(text)

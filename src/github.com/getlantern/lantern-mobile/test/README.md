@@ -16,10 +16,15 @@ virtualenv venv
 pip install -r requirements.txt
 ```
 
-You need to run `. venv/bin/activate` before executing any python scripts.
+## Run tests
 
+Run `. venv/bin/activate` before executing any python scripts.
 
-## Test on Testdroid cloud
+The screenshots took in each run will be in a separate directory under `./screenshots`.
+
+Modify `lib/suite.py` to add more tests.
+
+### Test on Testdroid cloud
 
 Make sure you properly set `TESTDROID_APIKEY` environment variable.
 
@@ -39,12 +44,14 @@ You have two options to run tests on Testdroid cloud.
 
 The script will upload the debug APK before running any test. Supply `--no-upload` option to skip uploading and use the latest uploaded APK.
 
-## Test on locally connected device
+### Test on locally connected device
 
 * Uninstall Lantern from target device.
 
 Selendroid will install the APK with a different signature. Installation will fail if there's an existing APK with different signature is installed.
 
+
+* Connect device and keep screen unlocked.
 
 * Start Selendroid standalone server (will download it at first time).
 
@@ -59,7 +66,3 @@ Selendroid will install the APK with a different signature. Installation will fa
 ```
 
 Check for Selendroid output if the error message is not clear enough.
-
-## Update tests
-
-Modify `lib/suite.py` to add more test functions.

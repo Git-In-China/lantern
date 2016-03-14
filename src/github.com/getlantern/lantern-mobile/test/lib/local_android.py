@@ -15,6 +15,7 @@ class LocalAndroid(TestLantern):
         # Ref http://appium.io/slate/en/master/?python#appium-server-capabilities
         self.desired_caps = {
             'platformName': 'Android',
+            'automationName': 'Selendroid',
             'aut': 'org.getlantern.lantern',
             'emulator': False
         }
