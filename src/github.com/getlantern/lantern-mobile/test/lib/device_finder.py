@@ -4,9 +4,6 @@ import requests
 
 
 class DeviceFinder:
-    # Cloud URL (not including API path)
-    url = None
-
     """ Full constructor with username and password
     """
     def __init__(self, url="https://cloud.testdroid.com", apiKey=None, download_buffer_size=65536):
